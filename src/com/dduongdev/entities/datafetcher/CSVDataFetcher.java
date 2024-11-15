@@ -1,4 +1,4 @@
-package com.dduongdev.entities.strategy;
+package com.dduongdev.entities.datafetcher;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,12 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dduongdev.utils.Constants;
-
-public class FileDataFetchStrategy implements IDataFetchStrategy {
-	public List<String> fetchData() throws IOException {
+public class CSVDataFetcher implements IDataFetcher {
+	public List<String> fetchData(String path) throws IOException {
 		List<String> data = new ArrayList<String>();
-		try (BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
                 data.add(line);

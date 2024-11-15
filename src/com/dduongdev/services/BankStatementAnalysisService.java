@@ -10,7 +10,7 @@ import java.util.Map;
 import com.dduongdev.entities.BankTransaction;
 import com.dduongdev.entities.BankTransactionTypes;
 import com.dduongdev.repositories.IBankTransactionRepository;
-import com.dduongdev.utils.BankTransactionSortTypes;
+import com.dduongdev.utils.BankTransactionTopTypes;
 
 public class BankStatementAnalysisService {
 	private IBankTransactionRepository bankTransactionRepository;
@@ -39,11 +39,12 @@ public class BankStatementAnalysisService {
 		return count;
 	}
 	
-	public List<BankTransaction> getTopBankTransactions(Comparator<BankTransaction> sortCriterion, 
-			BankTransactionSortTypes bankTransactionSortType, int limit) {
-		List<BankTransaction> result = new ArrayList<BankTransaction>(bankTransactionRepository.getAll());
+	public List<BankTransaction> getTopBankTransactions(Comparator<BankTransaction> sortCriterion, BankTransactionTopTypes bankTransactionSortType, 
+			BankTransactionTypes bankTransactionType, int limit) {
+		List<BankTransaction> result = new ArrayList<BankTransaction>(bankTransactionRepository.getAll()
+				.stream().filter(t -> t.getTransactionType() == bankTransactionType).toList());
 		
-		if (bankTransactionSortType == BankTransactionSortTypes.MIN) {
+		if (bankTransactionSortType == BankTransactionTopTypes.MIN) {
 			result.sort(sortCriterion);
 		}
 		else {
@@ -53,10 +54,10 @@ public class BankStatementAnalysisService {
 		return result.stream().limit(limit).toList();
 	}
 	
-	public String getMostSpentGroup() {
+	public String getMostAmountGroup(BankTransactionTypes bankTransactionType) {
 		Map<String, Double> groupSpentTotals = new HashMap<String, Double>();
 		for (var transaction : bankTransactionRepository.getAll()) {
-			if (transaction.getTransactionType() != BankTransactionTypes.SEND) {
+			if (transaction.getTransactionType() != bankTransactionType) {
 				continue;
 			}
 			

@@ -1,5 +1,5 @@
 package com.dduongdev.utils;
 
-public enum BankTransactionSortTypes {
+public enum BankTransactionTopTypes {
 	MAX, MIN
 }
