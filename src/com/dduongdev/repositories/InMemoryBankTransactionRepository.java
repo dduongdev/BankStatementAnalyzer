@@ -25,6 +25,10 @@ public class InMemoryBankTransactionRepository implements IBankTransactionReposi
 	}
 	
 	public void add(BankTransaction transaction) {
-		transactions.add(transaction);
+		this.transactions.add(transaction);
+	}
+	
+	public void addBatch(List<BankTransaction> transactions) {
+		this.transactions.addAll(transactions);
 	}
 }

@@ -14,12 +14,11 @@ import com.dduongdev.entities.BankTransactionTypes;
 import com.dduongdev.repositories.IBankTransactionRepository;
 import com.dduongdev.repositories.InMemoryBankTransactionRepository;
 import com.dduongdev.services.BankStatementAnalysisService;
-import com.dduongdev.services.BankTransactionService;
 import com.dduongdev.services.BankTransactionTopTypes;
 
 public class BankStatementAnalyzer {
 	public static void main(String[] args) throws IOException, IllegalArgumentException  {
-		List<String> transactionsRawData = null;
+		List<BankTransaction> bankTransactions = null;
 		
 		Properties properties = new Properties();
 		try {
@@ -30,17 +29,12 @@ public class BankStatementAnalyzer {
 			DataFetchOptions dataFetchOption = DataFetchOptions.valueOf(option);
 			IDataFetcher dataFetcher = DataFetcherFactory.factory(dataFetchOption);
 			
-			transactionsRawData = (List<String>) dataFetcher.fetchData(path);
+			bankTransactions = (List<BankTransaction>) dataFetcher.fetchData(path);
 		}
 		finally {}
 		
 		IBankTransactionRepository bankTransactionRepository = InMemoryBankTransactionRepository.getInstance();
-		BankTransactionService bankTransactionService = new BankTransactionService();
-		
-		
-		for (var transaction : transactionsRawData) {
-			bankTransactionRepository.add(bankTransactionService.mapTransactionRecordToObject(transaction));
-		}
+		bankTransactionRepository.addBatch(bankTransactions);
 		
 		BankStatementAnalysisService bankStatementAnalysisService = new BankStatementAnalysisService(bankTransactionRepository);
 		
