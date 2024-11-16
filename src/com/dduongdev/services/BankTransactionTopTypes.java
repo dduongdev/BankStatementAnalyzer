@@ -1,4 +1,4 @@
-package com.dduongdev.utils;
+package com.dduongdev.services;
 
 public enum BankTransactionTopTypes {
 	MAX, MIN

@@ -1,4 +1,4 @@
-package com.dduongdev.entities.datafetcher;
+package com.dduongdev.dao.datafetcher;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

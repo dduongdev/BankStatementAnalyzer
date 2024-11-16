@@ -1,4 +1,4 @@
-package com.dduongdev.entities.datafetcher;
+package com.dduongdev.dao.datafetcher;
 
 public class DataFetcherFactory {
 	public static IDataFetcher factory(DataFetchOptions option) {

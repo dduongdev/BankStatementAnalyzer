@@ -1,4 +1,4 @@
-package com.dduongdev.entities.datafetcher;
+package com.dduongdev.dao.datafetcher;
 
 import java.io.IOException;
 import java.util.List;

@@ -10,7 +10,6 @@ import java.util.Map;
 import com.dduongdev.entities.BankTransaction;
 import com.dduongdev.entities.BankTransactionTypes;
 import com.dduongdev.repositories.IBankTransactionRepository;
-import com.dduongdev.utils.BankTransactionTopTypes;
 
 public class BankStatementAnalysisService {
 	private IBankTransactionRepository bankTransactionRepository;
